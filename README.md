@@ -65,24 +65,82 @@ Binds to process kill signals and ensures the profiler stops gracefully.
 
 ## Example Workflow
 
+The following workflow demonstrates how to use the ``@cmmv/inspector`` module to start profiling, register cleanup tasks using the ``once`` method, perform operations, capture a heap snapshot, and gracefully stop the profiler during process termination. The ``once`` method ensures that custom finalization logic is executed before the system exits, providing a structured way to handle cleanup tasks.
+
 ```typescript
 import { Inspector } from "@cmmv/inspector";
 
 async function main() {
+    // Register a cleanup task
+    Inspector.once(async () => {
+        console.log("Performing cleanup: Saving heap snapshot...");
+        await Inspector.takeHeapSnapshot("./snapshots");
+        console.log("Heap snapshot saved!");
+    });
+
+    // Bind process kill signals to ensure proper finalization
+    Inspector.bindKillProcess();
+
     // Start the profiler
     await Inspector.start();
 
-    // Perform operations
+    // Perform operations to simulate workload
     for (let i = 0; i < 1e6; i++) {
-        Math.sqrt(i);
+        Math.sqrt(i); // Example operation
     }
 
-    // Stop the profiler and save the profile
+    // Stop the profiler and save the CPU profile
     await Inspector.stop();
     await Inspector.saveProfile("./profiles", false);
 
-    console.log("Profile saved!");
+    console.log("Profile saved and profiler stopped!");
 }
 
 main();
 ```
+
+## Heap Snapshot 
+
+The ``@cmmv/inspector`` module includes the ``takeHeapSnapshot`` method, which captures a snapshot of the current memory heap. This feature is particularly useful for diagnosing memory leaks, analyzing object allocations, and optimizing memory usage in Node.js applications.
+
+* **Comprehensive Memory Dump:** Captures a full representation of the memory heap, including objects, closures, and references.
+* **Integration with Chrome DevTools:** The snapshot can be saved in .heapsnapshot format and analyzed using Chrome DevTools for detailed insights.
+* **Process Monitoring:** Ideal for capturing memory state during critical events, such as process termination or unexpected behavior.
+
+### Example 
+
+Below is an example demonstrating how to capture and save a heap snapshot using the ``takeHeapSnapshot`` method:
+
+```typescript
+import { Inspector } from "@cmmv/inspector";
+
+async function captureHeap() {
+    const snapshotDir = "./heap_snapshots";
+
+    console.log("Taking a heap snapshot...");
+    await Inspector.takeHeapSnapshot(snapshotDir);
+    console.log(`Heap snapshot saved to ${snapshotDir}`);
+}
+
+captureHeap();
+```
+
+### Use Case in Cleanup
+
+The ``takeHeapSnapshot`` method is especially powerful when combined with the ``once`` method to capture memory state during process termination:
+
+```typescript
+Inspector.once(async () => {
+    console.log("Finalizing: Capturing heap snapshot...");
+    await Inspector.takeHeapSnapshot("./final_snapshots");
+    console.log("Heap snapshot captured during cleanup.");
+});
+```
+
+### Benefits of Heap Snapshots
+
+1. **Memory Leak Detection:** Identify objects that are not properly garbage collected.
+2. **Performance Optimization:** Analyze memory usage patterns and optimize object lifetimes.
+3. **Debugging:** Inspect memory states to understand runtime behaviors during errors or unexpected terminations.
+
+By ``leveraging`` the takeHeapSnapshot method, developers can gain deep visibility into application memory, helping to maintain performance and reliability.
