@@ -1,11 +1,21 @@
 {
     "name": "@cmmv/inspector",
     "version": "0.0.3",
-    "main": "dist/index.js",
     "description": "CMMV (@inspector)",
     "type": "module",
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/esm/index.js",
+	"types": "./dist/types/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
     "scripts": {
-        "build": "tsc",
+        "build:cjs": "tsc --project tsconfig.cjs.json",
+		"build:esm": "tsc --project tsconfig.esm.json",
+		"build": "npm run build:cjs && npm run build:esm",
         "test": "vitest",
         "prepare": "husky",
         "lint": "pnpm run lint:spec",
