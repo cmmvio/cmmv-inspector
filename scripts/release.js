@@ -1,28 +1,32 @@
-import fs from 'fs';
-import path from 'path';
-import chalk from 'chalk';
-import semver from 'semver';
-import { execa } from 'execa';
-import { cwd } from 'process';
-import enquirer from 'enquirer';
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const semver = require('semver');
+const { cwd } = require('process');
+const enquirer = require('enquirer');
 
 const { prompt } = enquirer;
-const currentVersion = JSON.parse(fs.readFileSync(path.resolve(cwd(), 'package.json'), 'utf-8')).version;
-const versionIncrements = ['patch', 'minor', 'major'];
-
-const inc = (i) => semver.inc(currentVersion, i);
-const run = async (bin, args, opts = {}) => {
-    try {
-        await execa(bin, args, { stdio: 'inherit', ...opts });
-    } catch (err) {
-        console.error(chalk.red(`Error running command: ${bin} ${args.join(' ')}`));
-        console.error(err.message);
-        process.exit(1);
-    }
-};
-const step = (msg) => console.log(chalk.cyan(msg));
 
 async function main() {
+    const chalk = (await import('chalk')).default; // Importação dinâmica para ESM
+    const { execa } = await import('execa'); // Importação dinâmica para ESM
+
+    const currentVersion = JSON.parse(fs.readFileSync(path.resolve(cwd(), 'package.json'), 'utf-8')).version;
+    const versionIncrements = ['patch', 'minor', 'major'];
+
+    const inc = (i) => semver.inc(currentVersion, i);
+    const run = async (bin, args, opts = {}) => {
+        try {
+            await execa(bin, args, { stdio: 'inherit', ...opts });
+        } catch (err) {
+            console.error(chalk.red(`Error running command: ${bin} ${args.join(' ')}`));
+            console.error(err.message);
+            process.exit(1);
+        }
+    };
+    const step = (msg) => console.log(chalk.cyan(msg));
+
     let targetVersion;
 
     try {
@@ -89,11 +93,7 @@ async function main() {
 
         // Publish the package
         step('\nPublishing the package...');
-        await run('npm', [
-            'publish',
-            '--access',
-            'public',
-        ]);
+        await run('pnpm', ['publish', '--access', 'public']);
 
         // Push changes to GitHub
         step('\nPushing to GitHub...');
@@ -115,11 +115,11 @@ function updatePackage(version) {
     pkg.version = version;
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4) + '\n');
-    step(`Updated package.json version to ${version}`);
+    console.log(`Updated package.json version to ${version}`);
 }
 
 main().catch((err) => {
-    console.error(chalk.red(`\nUnexpected error:`));
+    console.error(`\nUnexpected error:`);
     console.error(err.message);
     process.exit(1);
 });
