@@ -1,3 +1,12 @@
+## [0.1.1](https://github.com/andrehrferreira/cmmv-inspector/compare/v0.1.0...v0.1.1) (2024-11-27)
+
+
+### Bug Fixes
+
+* remove type module ([bf1a3c0](https://github.com/andrehrferreira/cmmv-inspector/commit/bf1a3c05026d8d8f06f3963ccacea2296781b331))
+
+
+
 # [0.1.0](https://github.com/andrehrferreira/cmmv-inspector/compare/v0.0.3...v0.1.0) (2024-11-27)
 
 
