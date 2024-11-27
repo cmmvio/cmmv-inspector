@@ -1,6 +1,6 @@
 {
     "name": "@cmmv/inspector",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "CMMV (@inspector)",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.js",
