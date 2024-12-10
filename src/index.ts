@@ -1,2 +1,2 @@
-export * from "./modules/inspector.module";
-export * from "./services/inspector.service";
+export * from './inspector.module';
+export * from './inspector.service';
