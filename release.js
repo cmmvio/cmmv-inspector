@@ -9,8 +9,8 @@ const enquirer = require('enquirer');
 const { prompt } = enquirer;
 
 async function main() {
-    const chalk = (await import('chalk')).default; // Importação dinâmica para ESM
-    const { execa } = await import('execa'); // Importação dinâmica para ESM
+    const chalk = (await import('chalk')).default; 
+    const { execa } = await import('execa'); 
 
     const currentVersion = JSON.parse(fs.readFileSync(path.resolve(cwd(), 'package.json'), 'utf-8')).version;
     const versionIncrements = ['patch', 'minor', 'major'];

@@ -19,7 +19,7 @@
         "prepare": "husky",
         "lint": "pnpm run lint:spec",
         "lint:fix": "pnpm run lint:spec -- --fix",
-        "release": "node scripts/release.js",
+        "release": "node release.js",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
     },
     "keywords": [
@@ -47,9 +47,6 @@
     },
     "lint-staged": {
         "**/*.ts": [
-            "prettier --ignore-path ./.prettierignore --write"
-        ],
-        "packages/**/*.json": [
             "prettier --ignore-path ./.prettierignore --write"
         ]
     },
