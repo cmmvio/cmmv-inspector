@@ -1,3 +1,12 @@
+## [0.1.5](https://github.com/andrehrferreira/cmmv-inspector/compare/v0.1.4...v0.1.5) (2024-12-10)
+
+
+### Bug Fixes
+
+* description ([93d2970](https://github.com/andrehrferreira/cmmv-inspector/commit/93d2970f389c7a72e0dcce8481a316332d7417c7))
+
+
+
 ## [0.1.4](https://github.com/andrehrferreira/cmmv-inspector/compare/v0.1.3...v0.1.4) (2024-12-10)
 
 
