@@ -1,6 +1,6 @@
 {
     "name": "@cmmv/inspector",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "Implementation of inspector for CMMV",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.js",
@@ -31,12 +31,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/andrehrferreira/cmmv-inspector.git"
+        "url": "git+https://github.com/cmmvio/cmmv-inspector.git"
     },
     "author": "Andre Ferreira",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/andrehrferreira/cmmv-inspector/issues"
+        "url": "https://github.com/cmmvio/cmmv-inspector/issues"
     },
     "homepage": "https://cmmv.io",
     "publishConfig": {
