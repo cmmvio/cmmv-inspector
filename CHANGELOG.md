@@ -1,3 +1,12 @@
+## [0.1.7](https://github.com/cmmvio/cmmv-inspector/compare/v0.1.6...v0.1.7) (2025-01-24)
+
+
+### Bug Fixes
+
+* repository ([578aba8](https://github.com/cmmvio/cmmv-inspector/commit/578aba8d1ae8fed99e86dd4087424b8d2c4b7ca2))
+
+
+
 ## [0.1.6](https://github.com/cmmvio/cmmv-inspector/compare/v0.1.5...v0.1.6) (2024-12-10)
 
 
