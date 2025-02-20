@@ -1,3 +1,7 @@
+# [0.2.0](https://github.com/cmmvio/cmmv-inspector/compare/v0.1.7...v0.2.0) (2025-02-20)
+
+
+
 ## [0.1.7](https://github.com/cmmvio/cmmv-inspector/compare/v0.1.6...v0.1.7) (2025-01-24)
 
 
